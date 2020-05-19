@@ -22,10 +22,12 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.ItemCollection;
 import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
+import com.amazonaws.services.dynamodbv2.document.ScanOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.UpdateItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
+import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.NameMap;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
@@ -46,25 +48,29 @@ public class DBServices  {
        
     public static void main(String[] args) {
 		
-	BasicAWSCredentials credentials = new BasicAWSCredentials("ACCESS_KEY","SECRET_KEY" );           
+	//BasicAWSCredentials credentials = new BasicAWSCredentials("ACCESS_KEY","SECRET_KEY" );           
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-            .withRegion(Regions.US_EAST_1).withCredentials(new AWSStaticCredentialsProvider(credentials))
+            .withRegion(Regions.US_EAST_1)
             .build();
         DynamoDB dynamoDB = new DynamoDB(client);
         Table table = dynamoDB.getTable("RealTimeBuses");
 
-        QuerySpec spec = new QuerySpec();
+        ScanSpec scanSpec = new ScanSpec();
             
-        
-        ItemCollection<QueryOutcome> items = table.query(spec);
+         try {
+            ItemCollection<ScanOutcome> items = table.scan(scanSpec);
 
-        Iterator<Item> iterator = items.iterator();
-        Item item = null;
-        while (iterator.hasNext()) {
-            item = iterator.next();
-            System.out.println(item.toJSONPretty());
+            Iterator<Item> iter = items.iterator();
+            while (iter.hasNext()) {
+                Item item = iter.next();
+                System.out.println(item.toString());
+            }
+
         }
-        
+        catch (Exception e) {
+            System.err.println("Unable to scan the table:");
+            System.err.println(e.getMessage());
+        }
         
     
  
