@@ -5,6 +5,9 @@
  */
 package edu.eci.arep.TransmilenioApp;
 //import com.mashape.unirest.http.JsonNode;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 
 import com.amazonaws.services.lambda.runtime.Context;
@@ -43,14 +46,14 @@ public class DBServices  {
        
     public static void main(String[] args) {
 		
-	           
+	BasicAWSCredentials credentials = new BasicAWSCredentials("ACCESS_KEY","SECRET_KEY" );           
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-            .withRegion(Regions.US_EAST_1)
+            .withRegion(Regions.US_EAST_1).withCredentials(new AWSStaticCredentialsProvider(credentials))
             .build();
         DynamoDB dynamoDB = new DynamoDB(client);
         Table table = dynamoDB.getTable("RealTimeBuses");
 
-        QuerySpec spec = new QuerySpec().withKeyConditionExpression("Id = :v_id");
+        QuerySpec spec = new QuerySpec();
             
         
         ItemCollection<QueryOutcome> items = table.query(spec);
