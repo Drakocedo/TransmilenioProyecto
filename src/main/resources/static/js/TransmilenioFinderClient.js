@@ -1,12 +1,12 @@
-TransmilenioFinderClient= (function(){
+ var TransmilenioFinderClient= (function(){
     return {
 
         
 
-        getAllBuses: function(name,callback){
+        getAllBuses: function(callback){
 
             jQuery.ajax({
-                url: "TransmilenioBuses",
+                url: "/TransmilenioBuses",
                 success: function(result) {
                   callback(result);
                 },

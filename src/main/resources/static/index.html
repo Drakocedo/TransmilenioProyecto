@@ -1,58 +1,61 @@
 <head>
-    <title>AirpotsFinder</title>
+    <title>TransmilenioApp</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
     <script src="/webjars/bootstrap/4.1.2/js/bootstrap.min.js"></script>
-	
-    
-    <script src="js/airportsFinderApp.js"></script>
-	 <link rel="stylesheet"
-      href="/webjars/bootstrap/4.1.2/css/bootstrap.min.css" />
-	<script src="js/TransmilenioFinderApp.js"></script>
+
+
+
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/4.1.2/css/bootstrap.min.css" />
+    <script src="js/TransmilenioFinderApp.js"></script>
     <script src="js/TransmilenioFinderClient.js"></script>
+    <script type="text/javascript">
+        function actualizar() {
+            location.reload(true);
+        }
+        //Función para actualizar cada 10 segundos()
+        setInterval("actualizar()", 10000);
+    </script>
 
 
-   
-      
-      <style>
 
-</style>
-      
-      
-	  
+    <style>
+
+    </style>
+
+
+
 </head>
 
-<body onload="airportFinderModule.initMap()">
-	<header>
-		<h2> Sistema de control de Transmilenio</h2>
-	
-		
-	</header>
-	
-	<form id = "getAeropuertos" action="javascript:airportFinderModule.getAirpotsbyName()"> 
-     
-    </form>
-	
-	
-	<div class="wrapper">
-  
-  
-  
-  
-  
-  <div id="map" style="width: 450px; height: 350px;"> </div>
-  
- </div> 
-    
-	
-	
-	
-	
-	
-	
-	
+<body onload="TransmilenioFinderApp.initMap()">
+    <header>
+        <h2> Sistema de control de Transmilenio</h2>
+
+
+    </header>
+
+
+
+    <div class="wrapper">
+
+
+
+
+
+        <div id="map" style="width: 1000px; height: 500px;"> </div>
+
+    </div> 
+
+
+
+
+
+
+
+
 
 </body>
